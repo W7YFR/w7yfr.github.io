@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<title>W7YFR</title>
+<meta name="description" content="Amateur radio callsign W7YFR — the software I build around the hobby, all of it open and all of it running in your browser.">
+<!-- Relative, not root-absolute, for the same reason the project sites are:
+     this page is the root today and stays the root under a custom domain, but
+     a project linked from here should not care which. -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%2312151a'/><text x='16' y='22' font-family='monospace' font-size='15' font-weight='700' fill='%236aa9ff' text-anchor='middle'>W7</text></svg>">
+<meta name="theme-color" content="#12151a">
+<style>
+/* The palette is lifted from the CWT app rather than reinvented, so the index
+   and the things it indexes read as one site. Dark-first for the same reason
+   it is there: the projects are signal views, and this is their front door. */
+:root {
+  --bg: #12151a;
+  --panel: #1a1f27;
+  --panel-2: #222937;
+  --line: #2e3644;
+  --ink: #e6eaf0;
+  --ink-dim: #97a3b6;
+  --ink-faint: #66708a;
+  --you: #6aa9ff;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #f6f7f9;
+    --panel: #ffffff;
+    --panel-2: #eef1f5;
+    --line: #d5dae2;
+    --ink: #1a1f27;
+    --ink-dim: #5a6577;
+    --ink-faint: #8b95a7;
+    --you: #1f6feb;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--ink);
+  font: 14px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Centered when it fits, top-aligned when it does not — `center` alone would
+     push the top of an over-tall page out of reach on a short window. */
+  justify-content: safe center;
+  gap: 22px;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+/* The callsign, drawn. Three things make the art art and it falls apart
+   without any of them: a monospace face, `white-space: pre`, and
+   `line-height: 1` so consecutive rows touch instead of being separated by a
+   stripe of background. */
+.wordmark {
+  margin: 0;
+  --wm-w: min(90vw, 640px);
+  --wm-h: clamp(52px, 15vh, 148px);
+  --wm-morse-gap: 16px;
+  --wm-morse-line: 20px;
+}
+.wordmark > .artbox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--wm-morse-gap);
+  height: calc(var(--wm-h) + var(--wm-morse-gap) + var(--wm-morse-line));
+}
+.wordmark .art {
+  display: block;
+  white-space: pre;
+  font-family: var(--mono);
+  /* Scaled to fit the box in whichever direction runs out first. 0.6em is the
+     advance of a monospace cell in every face in the stack, near enough, so
+     `cols / 0.6` is the drawing's width in ems and `rows` is its height. */
+  font-size: min(
+    calc(var(--wm-w) / var(--cols) / 0.6),
+    calc(var(--wm-h) / var(--rows))
+  );
+  line-height: 1;
+  font-weight: 400;
+  color: var(--you);
+}
+.wordmark .morse {
+  font-family: var(--mono);
+  /* Sized and spaced to read as keying rather than as debris under the art. */
+  font-size: 15px;
+  font-weight: 400;
+  line-height: var(--wm-morse-line);
+  letter-spacing: .3em;
+  /* The trailing letter-space would otherwise push the line off-center. */
+  text-indent: .3em;
+  color: var(--ink-dim);
+}
+
+.lede {
+  color: var(--ink-dim);
+  max-width: 52ch;
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.ways {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: center;
+  width: 100%;
+  max-width: 780px;
+}
+
+/* A card is a link, not a box with a link in it: the whole target is the
+   target, which is the difference between a hit area and a scavenger hunt. */
+.way {
+  flex: 1 1 320px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 22px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+  text-align: left;
+  text-decoration: none;
+  color: inherit;
+}
+.way:hover, .way:focus-visible {
+  border-color: var(--you);
+  background: var(--panel-2);
+  outline: none;
+}
+.way h2 {
+  margin: 0;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--ink-dim);
+}
+.way .name {
+  font-family: var(--mono);
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--you);
+}
+.way p { margin: 0; color: var(--ink-dim); font-size: 13px; line-height: 1.5; }
+
+</style>
+</head>
+<body>
+
+<main>
+  <h1 class="wordmark">
+    <span class="artbox">
+      <!-- Screen readers get the callsign, not the picture: `role="img"` with a
+           label keeps a drawing from being read out one character at a time. -->
+      <span class="art" role="img" aria-label="W7YFR" style="--cols: 43; --rows: 6;">██╗    ██╗███████╗██╗   ██╗███████╗██████╗ 
+██║    ██║╚════██║╚██╗ ██╔╝██╔════╝██╔══██╗
+██║ █╗ ██║    ██╔╝ ╚████╔╝ █████╗  ██████╔╝
+██║███╗██║   ██╔╝   ╚██╔╝  ██╔══╝  ██╔══██╗
+╚███╔███╔╝   ██║     ██║   ██║     ██║  ██║
+ ╚══╝╚══╝    ╚═╝     ╚═╝   ╚═╝     ╚═╝  ╚═╝</span>
+      <span class="morse" aria-hidden="true">.--  --...  -.--  ..-.  .-.</span>
+    </span>
+  </h1>
+
+  <p class="lede">
+    Amateur radio, and the software I keep building around it. Everything here
+    runs in the browser — no account, no upload, no server.
+  </p>
+
+  <div class="ways">
+    <a class="way" href="/cwt/">
+      <h2>CW Trainer</h2>
+      <span class="name">CWT</span>
+      <p>
+        Key into your microphone and every dit, dah and gap is measured against
+        a perfect sender at the same speed. See where your timing is solid, and
+        hear where it is not.
+      </p>
+    </a>
+  </div>
+</main>
+
+
+</body>
+</html>
