@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="dark light">
 <title>W7YFR</title>
-<meta name="description" content="Amateur radio callsign W7YFR — the software I build around the hobby, all of it open and all of it running in your browser.">
+<meta name="description" content="Amateur radio callsign W7YFR — the software I build around the hobby: browser tools, practice tooling, and firmware for the keys on the desk. All of it open.">
 <!-- Relative, not root-absolute, for the same reason the project sites are:
      this page is the root today and stays the root under a custom domain, but
      a project linked from here should not care which. -->
@@ -76,7 +76,7 @@ main {
   --wm-morse-gap: 16px;
   --wm-morse-line: 20px;
 }
-.wordmark > .artbox {
+.wordmark .artbox {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -98,6 +98,7 @@ main {
   line-height: 1;
   font-weight: 400;
   color: var(--you);
+  transition: filter .18s ease;
 }
 .wordmark .morse {
   font-family: var(--mono);
@@ -109,6 +110,23 @@ main {
   /* The trailing letter-space would otherwise push the line off-center. */
   text-indent: .3em;
   color: var(--ink-dim);
+  transition: color .18s ease;
+}
+/* The callsign points at the callsign's entry in the book. A wordmark that is
+   also a link has to say so on hover without moving: the art is sized off the
+   viewport, so anything that changes its metrics reflows the page under the
+   cursor. Brightness and the morse line warming up do neither. */
+.wordmark a {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 10px;
+}
+.wordmark a:hover .art, .wordmark a:focus-visible .art { filter: brightness(1.18); }
+.wordmark a:hover .morse, .wordmark a:focus-visible .morse { color: var(--ink); }
+.wordmark a:focus-visible {
+  outline: 2px solid var(--you);
+  outline-offset: 8px;
 }
 
 .lede {
@@ -143,6 +161,7 @@ main {
   text-align: left;
   text-decoration: none;
   color: inherit;
+  transition: border-color .18s ease, background-color .18s ease;
 }
 .way:hover, .way:focus-visible {
   border-color: var(--you);
@@ -163,6 +182,35 @@ main {
   color: var(--you);
 }
 .way p { margin: 0; color: var(--ink-dim); font-size: 13px; line-height: 1.5; }
+/* Where the card goes, said once in small type: half of these are apps you can
+   open and half are repositories you clone, and the link alone does not say
+   which until you have already clicked it. */
+.way .meta {
+  margin-top: auto;
+  padding-top: 4px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .04em;
+  color: var(--ink-faint);
+}
+
+footer {
+  padding: 0 20px 36px;
+  text-align: center;
+  color: var(--ink-faint);
+  font-size: 13px;
+}
+footer a {
+  color: var(--ink-dim);
+  text-decoration-color: var(--line);
+  text-underline-offset: 3px;
+  transition: color .18s ease;
+}
+footer a:hover, footer a:focus-visible { color: var(--you); }
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition-duration: .01ms !important; }
+}
 
 </style>
 </head>
@@ -170,22 +218,27 @@ main {
 
 <main>
   <h1 class="wordmark">
-    <span class="artbox">
-      <!-- Screen readers get the callsign, not the picture: `role="img"` with a
-           label keeps a drawing from being read out one character at a time. -->
-      <span class="art" role="img" aria-label="W7YFR" style="--cols: 43; --rows: 6;">██╗    ██╗███████╗██╗   ██╗███████╗██████╗ 
+    <a href="https://www.qrz.com/db/w7yfr" aria-label="W7YFR on QRZ.com">
+      <span class="artbox">
+        <!-- The drawing is hidden rather than labelled: the link around it already
+             carries the name, and a `role="img"` inside would announce the
+             callsign twice. Either way it is never read out character by
+             character. -->
+        <span class="art" aria-hidden="true" style="--cols: 43; --rows: 6;">██╗    ██╗███████╗██╗   ██╗███████╗██████╗ 
 ██║    ██║╚════██║╚██╗ ██╔╝██╔════╝██╔══██╗
 ██║ █╗ ██║    ██╔╝ ╚████╔╝ █████╗  ██████╔╝
 ██║███╗██║   ██╔╝   ╚██╔╝  ██╔══╝  ██╔══██╗
 ╚███╔███╔╝   ██║     ██║   ██║     ██║  ██║
  ╚══╝╚══╝    ╚═╝     ╚═╝   ╚═╝     ╚═╝  ╚═╝</span>
-      <span class="morse" aria-hidden="true">.--  --...  -.--  ..-.  .-.</span>
-    </span>
+        <span class="morse" aria-hidden="true">.--  --...  -.--  ..-.  .-.</span>
+      </span>
+    </a>
   </h1>
 
   <p class="lede">
-    Amateur radio, and the software I keep building around it. Everything here
-    runs in the browser — no account, no upload, no server.
+    Amateur radio, and the software I keep building around it — a trainer that
+    runs in the browser, an extension that logs your practice, and firmware for
+    the keys on the desk. All of it open.
   </p>
 
   <div class="ways">
@@ -197,10 +250,49 @@ main {
         a perfect sender at the same speed. See where your timing is solid, and
         hear where it is not.
       </p>
+      <span class="meta">web app · nothing leaves the browser</span>
+    </a>
+
+    <a class="way" href="https://github.com/W7YFR/lcwo-tutor">
+      <h2>Practice Log</h2>
+      <span class="name">lcwo-tutor</span>
+      <p>
+        A Chrome extension that captures your LCWO practice as you do it —
+        every attempt at every clip, straight off the page. It keeps the
+        history, tracks the characters you keep missing, and builds a report
+        that says whether you are actually getting better.
+      </p>
+      <span class="meta">chrome extension · stays on your machine</span>
+    </a>
+
+    <a class="way" href="https://github.com/W7YFR/k3ng_cw_keyer">
+      <h2>Keyer Firmware</h2>
+      <span class="name">k3ng_cw_keyer</span>
+      <p>
+        My fork of K3NG's Arduino keyer, tuned for the rig on my bench: a CW
+        decoder on the display, terminal-less echo practice with repeat, and the
+        feature set trimmed to what this build actually has buttons for.
+      </p>
+      <span class="meta">arduino · source on github</span>
+    </a>
+
+    <a class="way" href="https://github.com/W7YFR/cw-usb">
+      <h2>Paddle Adapter</h2>
+      <span class="name">cw-usb</span>
+      <p>
+        A paddle is two switches; a computer wants a keyboard. This is the
+        fifty-line bridge between them — a USB HID adapter that reports dit and
+        dah as key presses, so browser keyers take a real paddle as input.
+      </p>
+      <span class="meta">arduino · source on github</span>
     </a>
   </div>
 </main>
 
+<footer>
+  Everything above, and whatever comes next, lives at
+  <a href="https://github.com/W7YFR">github.com/W7YFR</a>.
+</footer>
 
 </body>
 </html>
