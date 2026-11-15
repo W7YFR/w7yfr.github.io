@@ -194,6 +194,10 @@ main {
    which until you have already clicked it. */
 .way .meta {
   margin-top: auto;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   padding-top: 4px;
   font-family: var(--mono);
   font-size: 11px;
@@ -252,7 +256,7 @@ footer a:hover, footer a:focus-visible { color: var(--you); }
       <p>
         Scores your sending against perfect timing, using your mic. Also has copy practice and simulated QSOs (POTA, CWT, SST, MST).
       </p>
-      <span class="meta">web app · nothing leaves the browser</span>
+      <span class="meta">web app</span>
     </a>
 
     <a class="way" href="/nanobands/">
@@ -262,7 +266,7 @@ footer a:hover, footer a:focus-visible { color: var(--you); }
         over the SWR curve. Load a photo of the NanoVNA screen or an .s1p file,
         or sweep live over USB and keep sweeps to compare while you tune.
       </p>
-      <span class="meta">web app · your photo stays in the browser</span>
+      <span class="meta">web app</span>
     </a>
 
     <a class="way" href="https://github.com/W7YFR/lcwo-tutor">
@@ -271,7 +275,7 @@ footer a:hover, footer a:focus-visible { color: var(--you); }
         Chrome extension that saves your LCWO practice as you go, tracks which
         characters you miss, and shows whether you're improving.
       </p>
-      <span class="meta">chrome extension · stays on your machine</span>
+      <span class="meta">chrome extension</span>
     </a>
 
     <a class="way" href="https://github.com/W7YFR/rbn-qth">
@@ -280,7 +284,7 @@ footer a:hover, footer a:focus-visible { color: var(--you); }
         Chrome extension that adds each spotter's location to the Reverse Beacon
         Network spots table, so you can see where you're being heard.
       </p>
-      <span class="meta">chrome extension · source on github</span>
+      <span class="meta">chrome extension</span>
     </a>
 
     <a class="way" href="https://github.com/W7YFR/k3ng_cw_keyer">
@@ -289,7 +293,7 @@ footer a:hover, footer a:focus-visible { color: var(--you); }
         My fork of the K3NG Arduino keyer. Adds a settings menu you run from the
         paddle and support for a VBand USB adapter.
       </p>
-      <span class="meta">arduino · source on github</span>
+      <span class="meta">arduino</span>
     </a>
 
     <a class="way" href="https://github.com/W7YFR/cw-usb">
@@ -298,7 +302,7 @@ footer a:hover, footer a:focus-visible { color: var(--you); }
         Arduino USB adapter that turns a paddle into key presses, so you can use
         a real paddle with browser keyers.
       </p>
-      <span class="meta">arduino · source on github</span>
+      <span class="meta">arduino</span>
     </a>
   </div>
 </main>
