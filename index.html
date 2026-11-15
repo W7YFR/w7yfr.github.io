@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="dark light">
 <title>W7YFR</title>
-<meta name="description" content="Amateur radio callsign W7YFR — the software I build around the hobby: browser tools, practice tooling, and firmware for the keys on the desk. All of it open.">
+<meta name="description" content="Amateur radio callsign W7YFR, and the software I build around it.">
 <!-- Relative, not root-absolute, for the same reason the project sites are:
      this page is the root today and stays the root under a custom domain, but
      a project linked from here should not care which. -->
@@ -17,7 +17,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="W7YFR">
 <meta property="og:title" content="W7YFR">
-<meta property="og:description" content="Amateur radio callsign W7YFR — the software I build around the hobby: browser tools, practice tooling, and firmware for the keys on the desk. All of it open.">
+<meta property="og:description" content="Amateur radio callsign W7YFR, and the software I build around it.">
 <meta property="og:url" content="https://www.w7yfr.com/">
 <meta property="og:image" content="https://www.w7yfr.com/og-image.png">
 <meta property="og:image:width" content="1200">
@@ -181,14 +181,8 @@ main {
   background: var(--panel-2);
   outline: none;
 }
-.way h2 {
-  margin: 0;
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: .06em;
-  color: var(--ink-dim);
-}
 .way .name {
+  margin: 0;
   font-family: var(--mono);
   font-size: 19px;
   font-weight: 600;
@@ -249,77 +243,60 @@ footer a:hover, footer a:focus-visible { color: var(--you); }
   </h1>
 
   <p class="lede">
-    Amateur radio, and the software I keep building around it — a CW trainer
-    and an SWR reader that run in the browser, an extension that logs your
-    practice, another that shows where the RBN skimmers hearing you are, and
-    firmware for the keys on the desk. All of it open.
+    Amateur radio, and the software I build around it.
   </p>
 
   <div class="ways">
     <a class="way" href="/cwt/">
-      <h2>CW Trainer</h2>
-      <span class="name">CWT</span>
+      <h2 class="name">CWT</h2>
       <p>
-        Key into your microphone and every dit, dah and gap is measured against
-        a perfect sender at the same speed. See where your timing is solid, and
-        hear where it is not.
+        Scores your sending against perfect timing, using your mic. Also has copy practice and simulated QSOs (POTA, CWT, SST, MST).
       </p>
       <span class="meta">web app · nothing leaves the browser</span>
     </a>
 
     <a class="way" href="/nanobands/">
-      <h2>SWR Band Plan</h2>
-      <span class="name">NanoBands</span>
+      <h2 class="name">NanoBands</h2>
       <p>
-        Drop in a photo of your NanoVNA's SWR screen, or an .s1p file, and see
-        which band segments your antenna is ready for. It traces the curve,
-        finds the dips and the 3:1 crossings, and lays the US band plan over
-        them for your license class.
+        Shows which bands your antenna is good on, with the US band plan drawn
+        over the SWR curve. Load a photo of the NanoVNA screen or an .s1p file,
+        or sweep live over USB and keep sweeps to compare while you tune.
       </p>
       <span class="meta">web app · your photo stays in the browser</span>
     </a>
 
     <a class="way" href="https://github.com/W7YFR/lcwo-tutor">
-      <h2>Practice Log</h2>
-      <span class="name">lcwo-tutor</span>
+      <h2 class="name">lcwo-tutor</h2>
       <p>
-        A Chrome extension that captures your LCWO practice as you do it —
-        every attempt at every clip, straight off the page. It keeps the
-        history, tracks the characters you keep missing, and builds a report
-        that says whether you are actually getting better.
+        Chrome extension that saves your LCWO practice as you go, tracks which
+        characters you miss, and shows whether you're improving.
       </p>
       <span class="meta">chrome extension · stays on your machine</span>
     </a>
 
     <a class="way" href="https://github.com/W7YFR/rbn-qth">
-      <h2>RBN QTH</h2>
-      <span class="name">rbn-qth</span>
+      <h2 class="name">rbn-qth</h2>
       <p>
-        A Chrome extension that adds the spotter's QTH to the Reverse Beacon
-        Network's spots table. Call CQ, and next to every skimmer that heard
-        you is the town and grid square it is in, not just a callsign.
+        Chrome extension that adds each spotter's location to the Reverse Beacon
+        Network spots table, so you can see where you're being heard.
       </p>
       <span class="meta">chrome extension · source on github</span>
     </a>
 
     <a class="way" href="https://github.com/W7YFR/k3ng_cw_keyer">
-      <h2>Keyer Firmware</h2>
-      <span class="name">k3ng_cw_keyer</span>
+      <h2 class="name">k3ng_cw_keyer</h2>
       <p>
-        My fork of K3NG's Arduino keyer, tuned for the rig on my bench: a CW
-        decoder on the display, terminal-less echo practice with repeat, and the
-        feature set trimmed to what this build actually has buttons for.
+        My fork of the K3NG Arduino keyer. Adds a settings menu you run from the
+        paddle and support for a VBand USB adapter.
       </p>
       <span class="meta">arduino · source on github</span>
     </a>
 
     <a class="way" href="https://github.com/W7YFR/cw-usb">
-      <h2>Paddle Adapter</h2>
-      <span class="name">cw-usb</span>
+      <h2 class="name">cw-usb</h2>
       <p>
-        A paddle is two switches; a computer wants a keyboard. This is the
-        fifty-line bridge between them — a USB HID adapter that reports dit and
-        dah as key presses, so browser keyers take a real paddle as input.
+        Arduino USB adapter that turns a paddle into key presses, so you can use
+        a real paddle with browser keyers.
       </p>
       <span class="meta">arduino · source on github</span>
     </a>
@@ -327,7 +304,7 @@ footer a:hover, footer a:focus-visible { color: var(--you); }
 </main>
 
 <footer>
-  Everything above, and whatever comes next, lives at
+  Source for all of it is at
   <a href="https://github.com/W7YFR">github.com/W7YFR</a>.
 </footer>
 
